@@ -45,6 +45,8 @@ Os arquivos serão organizados nas seguintes categorias:
 - `Arquivos de Audio`: `.mp3`, `.wav`, `.flac`, etc.
 - `Binários`: `.exe`, `.zip`, `.rar`, etc.
 
+Além disso, dentro de cada categoria, os arquivos serão organizados por ano e mês de modificação no formato YYYY-MM.
+
 ## 🛠 Melhorias Futuras
 - Adicionar suporte para categorias personalizadas via configuração externa.
 - Criar uma interface gráfica para facilitar o uso.

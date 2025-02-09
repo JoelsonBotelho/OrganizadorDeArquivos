@@ -1,5 +1,6 @@
 import os
 import shutil
+from datetime import datetime
 
 # Defina a pasta onde estão os arquivos bagunçados
 pasta_origem = "/Users/joelsonbotelho/Desktop/Transferências"  # <- Altere para o caminho real
@@ -29,12 +30,24 @@ for arquivo in os.listdir(pasta_origem):
     if os.path.isfile(caminho_arquivo):
         extensao = os.path.splitext(arquivo)[1].lower()  # Pega a extensão do arquivo
 
+        # Descobrir a data de modificação do arquivo
+        timestamp = os.path.getmtime(caminho_arquivo)
+        data_modificacao = datetime.fromtimestamp(timestamp)
+        pasta_data = f"{data_modificacao.year}-{data_modificacao.month:02d}"
+
         # Verificar em qual categoria ele pertence
         for categoria, extensoes in categorias.items():
             if extensao in extensoes:
-                destino = os.path.join(pasta_destino, categoria, arquivo)
+                
+                caminho_categoria = os.path.join(pasta_destino, categoria, pasta_data)
+                
+                # Criar a pasta se não existir
+                os.makedirs(caminho_categoria, exist_ok=True)
+
+                # Mover o arquivo para a pasta da categoria
+                destino = os.path.join(caminho_categoria, arquivo)
                 shutil.move(caminho_arquivo, destino)
-                print(f"Movido: {arquivo} -> {categoria}")
+                print(f"Movido: {arquivo} -> {categoria}/{pasta_data}")
                 break
 
 print("Organização concluída!")
